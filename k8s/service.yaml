@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dnsconfig-injector-webhook-svc
+  namespace: kube-system
+  labels:
+    app: dnsconfig-injector
+spec:
+  ports:
+  - port: 443
+    targetPort: 443
+  selector:
+    app: dnsconfig-injector

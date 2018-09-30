@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dnsconfig-injector-webhook-configmap
+  namespace: kube-system
+data:
+  dnsconfig.yaml: |
+    nameservers:
+      - 1.2.3.4
+    searches:
+      - my.dns.search.suffix
+    options:
+      - name: ndots
+        value: "2"
+      - name: edns0

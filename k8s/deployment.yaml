@@ -1,0 +1,38 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dnsconfig-injector-webhook-dp
+  namespace: kube-system
+  labels:
+    app: dnsconfig-injector
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dnsconfig-injector
+    spec:
+      containers:
+        - name: dnsconfig-injector
+          image: karampok/dnsconfig-injector:latest
+          imagePullPolicy: Always
+          args:
+            - -dnsCfgFile=/etc/webhook/config/dnsconfig.yaml
+            - -tlsCertFile=/etc/webhook/certs/cert.pem
+            - -tlsKeyFile=/etc/webhook/certs/key.pem
+            - -alsologtostderr
+            - -v=4
+            - 2>&1
+          volumeMounts:
+            - name: webhook-certs
+              mountPath: /etc/webhook/certs
+              readOnly: true
+            - name: webhook-config
+              mountPath: /etc/webhook/config
+      volumes:
+        - name: webhook-certs
+          secret:
+            secretName: dnsconfig-injector-webhook-certs
+        - name: webhook-config
+          configMap:
+            name: dnsconfig-injector-webhook-configmap

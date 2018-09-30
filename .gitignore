@@ -1,0 +1,4 @@
+vendor/*
+notes.txt
+dev/
+k8s/mutatingwebhook-ca-bundle.yaml
