@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: dnsconfig-injector
-          image: karampok/dnsconfig-injector:latest
+          image: karampok/dnsconfig-injector:v1
           imagePullPolicy: Always
           args:
             - -dnsCfgFile=/etc/webhook/config/dnsconfig.yaml
