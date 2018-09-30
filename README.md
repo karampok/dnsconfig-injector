@@ -1,4 +1,4 @@
-# Kubernetes Mutating Admission Webhook for dnsconfig pod injection
+# Mutating Admission Webhook for dnsconfig pod injection
 
 
 ## Deploy
@@ -41,7 +41,7 @@ kubectl apply -R -f k8s/
 
 ## Verify
 
-1. Th dsnconfig inject webhook should be running
+1. The dsnconfig inject webhook should be running
 ```
 # kubectl -n kube-system get pods
 NAME                                                  READY     STATUS    RESTARTS   AGE
@@ -85,7 +85,7 @@ EOF
 NAME                     READY   STATUS    RESTARTS   AGE
 sleep-7c97fff775-fbb8w   1/1     Running   0          36s
 
-# kubectl exec -it sleep-7c97fff775-fbb8w /bin/bash
+# kubectl exec -it sleep-7c97fff775-fbb8w -- cat /etc/resolv.conf
 nameserver 10.100.200.10
 nameserver 1.2.3.4
 search default.svc.cluster.local svc.cluster.local cluster.local my.dns.search.suffix
