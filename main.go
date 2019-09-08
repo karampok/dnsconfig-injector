@@ -24,12 +24,12 @@ func main() {
 	
 	dnsConfig, err := loadConfig(parameters.dnsCfgFile)
 	if err != nil {
-		glog.Errorf("Filed to load configuration: %v", err)
+		glog.Errorf("Failed to load configuration: %v", err)
 	}
 	
 	pair, err := tls.LoadX509KeyPair(parameters.certFile, parameters.keyFile)
 	if err != nil {
-		glog.Errorf("Filed to load key pair: %v", err)
+		glog.Errorf("Failed to load key pair: %v", err)
 	}
 	
 	whsvr := &WebhookServer {
@@ -49,7 +49,7 @@ func main() {
 	// start webhook server in new rountine
 	go func() {
 		if err := whsvr.server.ListenAndServeTLS("", ""); err != nil {
-			glog.Errorf("Filed to listen and serve webhook server: %v", err)
+			glog.Errorf("Failed to listen and serve webhook server: %v", err)
 		}
 	}()
 	
