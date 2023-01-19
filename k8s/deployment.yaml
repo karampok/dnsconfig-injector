@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dnsconfig-injector-webhook-dp
@@ -6,6 +6,9 @@ metadata:
   labels:
     app: dnsconfig-injector
 spec:
+  selector:
+    matchLabels:
+      app: dnsconfig-injector
   replicas: 1
   template:
     metadata:
@@ -14,7 +17,7 @@ spec:
     spec:
       containers:
         - name: dnsconfig-injector
-          image: karampok/dnsconfig-injector:v1
+          image: ghcr.io/payback159/dnsconfig-injector:main
           imagePullPolicy: Always
           args:
             - -dnsCfgFile=/etc/webhook/config/dnsconfig.yaml
@@ -23,6 +26,13 @@ spec:
             - -alsologtostderr
             - -v=4
             - 2>&1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 50Mi
           volumeMounts:
             - name: webhook-certs
               mountPath: /etc/webhook/certs
